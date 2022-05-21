@@ -3,6 +3,8 @@ import { authenticationReducer } from '../reducers/authReducer';
 import thunk from 'redux-thunk';
 import { albumsReducers } from '../reducers/albumsReducer';
 
+const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+
 const reducers = combineReducers (
   {
     authReducer: authenticationReducer,
@@ -11,5 +13,8 @@ const reducers = combineReducers (
 )
 
 export const store = createStore(
-  reducers
+  reducers,
+  composeEnhancers(
+    applyMiddleware(thunk)
+  )
 )
